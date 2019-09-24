@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.DeptDAO">
+    <!--查询部门所有信息-->
+    <select id="showAll" resultType="Dept">
+        select * from d_dept
+    </select>
+
+    <!--查询部门名称是否存在-->
+    <select id="queryByName" resultType="Dept">
+        select * from d_dept where deptName=#{deptName}
+    </select>
+
+    <!--添加部门信息-->
+    <insert id="insert" >
+        insert into d_dept (deptNumber,deptName,creatDate) values (#{deptNumber},#{deptName},#{creatDate})
+    </insert>
+
+    <!--修改部门信息-->
+    <update id="update">
+        update d_dept set deptNumber=#{deptNumber},deptName=#{deptName},creatDate=#{creatDate} where id=#{id}
+    </update>
+
+    <!--根据id查询部门信息-->
+    <select id="queryById" resultType="Dept">
+        select * from d_dept where id=#{id}
+    </select>
+
+</mapper>

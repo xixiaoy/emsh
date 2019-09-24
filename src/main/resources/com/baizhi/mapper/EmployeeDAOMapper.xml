@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.EmployeeDAO">
+    <!--部门与员工表连接查询-->
+    <resultMap id="employee" type="employee">
+        <id column="id" property="id"/>
+        <result column="portrait" property="portrait"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="salary" property="salary"/>
+        <result column="dept_id" property="dept_id"/>
+        <!--进行表连接-->
+        <association property="dept" javaType="dept">
+            <id column="ddid" property="id"/>
+            <result column="deptNumber" property="deptNumber"/>
+            <result column="deptName" property="deptName"/>
+            <result column="creatDate" property="creatDate"/>
+        </association>
+    </resultMap>
+
+    <!--根据id查询员工信息-->
+    <select id="queryById" resultMap="employee">
+        select d.id as ddid,d.deptNumber as deptNumber,d.deptName as deptName,d.creatDate as creatDate,
+               e.id as id,e.portrait as portrait,e.name as name,e.sex as sex,e.age as age,e.salary as salary,e.dept_id as dept_id
+               from e_employee e left join d_dept d on e.dept_id=d.id where e.dept_id=#{id}
+    </select>
+
+    <delete id="delete">
+        delete from e_employee where id=#{id}
+    </delete>
+
+    <!--根据id查询修改-->
+    <select id="toUpdate" resultType="Employee">
+        select * from e_Employee where id=#{id}
+    </select>
+
+    <!--修改用户信息-->
+    <update id="update" >
+        update e_employee set <if test="portrait != null and portrait !=''">portrait=#{portrait},</if>
+               name=#{name},sex=#{sex},age=#{age},salary=#{salary},dept_id=#{dept_id}
+               where id=#{id}
+    </update>
+
+    <!--添加员工信息-->
+    <insert id="insert">
+        insert into e_employee(portrait,name,sex,age,salary,dept_id)values (#{portrait},#{name},#{sex},#{age},#{salary},#{dept_id})
+    </insert>
+
+</mapper>

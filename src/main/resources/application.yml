@@ -1,0 +1,20 @@
+server:
+  port: 8888           #指定端口号
+  context-path: /emsh  #指定响应的项目名称
+  jsp-servlet:
+    init-parameters:
+      development: true   #配置热部署
+spring:
+  datasource:
+    type: org.apache.commons.dbcp.BasicDataSource
+    driver-class-name: com.mysql.jdbc.Driver   #指定驱动
+    url: jdbc:mysql://localhost:3306/mysql     #指定url
+    username: root
+    password: root
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+mybatis:
+  type-aliases-package: com.baizhi.entity
+  mapper-locations: classpath:com/baizhi/mapper/*Mapper.xml

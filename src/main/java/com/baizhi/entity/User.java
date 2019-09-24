@@ -2,6 +2,8 @@ package com.baizhi.entity;
 
 /**
  * 管理员实体类
+ *  测试git 远程仓库推送
+ *  2019-09-24
  */
 public class User {
     private Integer id;
